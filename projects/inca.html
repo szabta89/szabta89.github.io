@@ -16,8 +16,129 @@
           <div id="title">project overview</div>
           <br/>
         </div>
+        
+        
+			<div class="content">
+				<p align="justify">IncA is a program analysis framework. It comes with a DSL for the definition of program analyses 
+				and the runtime system evaluates program analyses incrementally to achieve the performance that is needed for 
+				real-time feedback in IDEs. When code gets changed, the IncA runtime system incrementally updates the results instead of 
+				the repeated recomputation from scratch. IncA program analysis code is translated into graph patterns and we reuse existing incremental 
+				graph pattern matching solutions to evaluate the analysis code on the AST of the analyzed program. </p>
+				
+				<p align="justify">IncA consists of a program analysis language, an optimizing compiler and an efficient runtime system. 
+				We have created a concrete implementation of the system on top of the MPS language workbench and we reuse the incremental 
+				graph pattern matching component of the IncQuery project.</p>
+				
+				<p align="justify">This website contains accompanying material to our PLDI 2016 paper about IncA.</p>
+			</div>
+        	<div class="content">
+				<div class="desc">
+					<h3>Table of contents:</h3>
+					<ol>
+						<li><a href="#start">Getting Started</a></li>
+						<li><a href="#claims">Claims of the Paper</a></li>
+						<li><a href="#casestudy">Case Studies</a></li>
+						<li><a href="#evaluation">Evaluation</a></li>
+						<li><a href="#fun">Playing with IncA</a></li>
+						<li><a href="#requirements">System Requirements</a></li>
+					</ol>
+				</div>
+			</div>
+
+
         <div class="content">
-			The page is under construction. The page contents and a virtual machine for the project will be available by 27.11.2015.
+	        <h2 id="start">1 - Getting Started</h2>
+	        
+	        <p align="justify">The Getting Started guide will be made available for the artifact evaluation track of PLDI 2016.</p>
+	        
+        </div>
+
+        <div class="content">
+	        <h2 id="claims">2 - Claims of the Paper</h2>
+	        
+	        <ul>
+	        	<li>IncA provides a DSL for the definition of program analyses.</li>
+	        	<li>The compiler of IncA translates the program analysis code into a matching graph pattern representation.</li>
+	        	<li>The compiler performs an interprocedural data flow analysis on the IncA program analysis code to conservatively 
+	        	approximate the types of AST nodes which can affect the analysis result. The runtime system uses the information to 
+	        	prune the AST changes that cannot affect the results thus reducing the runtime and memory requirement.</li>
+	        	<li>The IncA analysis DSL can be effectively used to define complex program analyses (see Case Studies).</li>
+	        	<li>The IncA runtime system can efficiently evaluate incremental program analyses on large code bases (see Evaluation).</li>
+	        </ul>
+        </div>
+
+        <div class="content">
+	        <h2 id="casestudy">3 - Case Studies</h2>
+	        
+	        <p align="justify">IncA program analysis code can be viewed and edited in MPS. However, MPS uses projectional editing and does not store the 
+	        program code in simple text format which makes it impossible to read the code outside of MPS. To ease the browsing of the program 
+	        analyses code of our three case studies we make them available for download as a formatted pdf file and also in simple text format. 
+	        Developers of IncA code can use a JavaDoc like documentation extension and we used it document every function in the analysis code to 
+	        explain how the analyses work.</p>
+	        
+	        <h3>Control Flow Analysis [<a href="inca/cfg.pdf">pdf</a>][<a href="inca/cfg.txt">text</a>]</h3>
+	        
+	        <p align="justify">We implemented an incremental control flow analysis that handles all of mbeddr C, 
+	        including conditionals (if and switch), loops (for, while, and do while), and jumps (break and continue). 
+	        The control flow analysis produces the sets of CFG edges where a CFG node represents a possible control flow point like 
+	        a statement, alternative switch case branches or else if parts of if statements. The analysis code can be viewed as a declarative 
+	        description of CFG source - target relationships in the context of the various control statements. </p>
+	        
+	         The ControlFlowAnalysis module contains the implementation in MPS. 
+	        
+	        <h3>Points-to Analysis [<a href="inca/pointsto.pdf">pdf</a>][<a href="inca/pointsto.txt">text</a>]</h3>
+	        
+	        <p align="justify">Given a variable that stores a pointer, the goal of a points to analysis is to identify the possible targets of the variable. 
+	        A well-known algorithm for computing the points-to tuples is Andersen's algorithm. The algorithm considers four basic 
+	        kinds of assignments and derives the points-to relation for the whole program from them.
+	        <br><br>
+	        Our points-to analysis in IncA builds on Andersen’s rules but extends them in three ways. First, by implementing 
+	        the analysis in IncA we immediately improve the runtime after code changes through incrementality. Second, we add 
+	        flow-sensitivity by building on top of our incremental control flow analysis. Third, we do not require the code to 
+	        only use the four kinds of assignments in Andersen’s rules, rather support all of mbeddr C except pointer arithmetics.
+	        </p>
+	        
+	         The PointsToAnalysis module contains the implementation in MPS. 
+	        
+	        <h3>Well-formedness Checks for mbeddr C Code [<a href="inca/wellformedness.pdf">pdf</a>][<a href="inca/wellformedness.txt">text</a>]</h3>
+	        
+	        We implemented four well-formedness checks for mbeddr C and its language extensions. 
+	        <ul>
+	        	<li>CYCLE: mbeddr C provides modules for organizing code. This check detects cyclic dependencies between modules.</li>
+				<li>GLOBAL: This check detects conflicting global variables with the same name across modules.</li>
+				<li>REC: This check detects recursive functions by construction and inspection of a call graph. 
+				In embedded systems with constrained memory, the stack space required for recursive functions is often unacceptable.</li>
+				<li>COMP mbeddr C supports interfaces and composable components. This check detects components that fail to imple- ment all functions declared by their interfaces.</li>
+	        </ul>
+	        
+	        The WellFormedness module contains the implementation in MPS. 
+	        
+	        <h3>FindBugs for Java [<a href="inca/findbugs.pdf">pdf</a>][<a href="inca/findbugs.txt">text</a>]</h3>
+	        
+	        <p>We implemented 10 FindBugs rules with IncA. The <a href="http://findbugs.sourceforge.net/bugDescriptions.html">original identifiers</a> of the rules 
+	        are as follows; CI_CONFUSED_INHERITANCE, EQ_ABSTRACT_SELF, CO_SELF_NO_OBJECT, SE_NO_SUITABLE_CONSTRUCTOR, IMSE_DONT_CATCH_IMSE, UUF_UNUSED_FIELD, FI_PUBLIC_SHOULD_BE_PROTECTED, DM_RUN_FINALIZERS_ON_EXIT
+	        HE_EQUALS_USE_HASHCODE, ES_COMPARING_STRINGS_WITH_EQ.</p>
+	        
+	        The FindBugs module contains the implementation in MPS.
+	        
+        </div>
+
+        <div class="content">
+	        <h2 id="evaluation">4 - Evaluation</h2>
+        </div>
+
+        <div class="content">
+	        <h2 id="evaluation">5 - Playing with IncA</h2>
+        </div>
+        
+        <div class="content">
+	        <h2 id="requirements">6 - System Requirements</h2>
+	        IncA relies on the following tools and programs:
+	        <ul>
+	        	<li>Java 1.8</li>
+	        	<li><a href="https://confluence.jetbrains.com/display/MPS/JetBrains+MPS+EAP+Download+Page">MPS 3.3</a></li>
+	        	<li>the feature/inca branch of <a href="https://github.com/mbeddr/mbeddr.core">mbeddr</a> for the case studies</li> 
+	        </ul>
         </div>
         
         <div style="clear:both"></div>

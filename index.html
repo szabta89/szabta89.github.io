@@ -96,10 +96,11 @@
               <div class="desc">
                 <a href="https://szabta89.github.io/projects/inca.html"><img src="images/miq.png"/></a>
 				<p align="justify">
-				MPS-IncQuery is an adaptation of the EMF-IncQuery project in the MPS language workbench. It builds on the core query engine of EMF-IncQuery, 
-				which is entirely modeling platform independent. It comes with the same high performance characteristics and uses the incremental change 
-				notifications of the MPS language models to maintain the query results. A state-of-the-art research direction investigates how 
-				static program analysis techniques can be implemented with MPS-IncQuery, where an example is incremental points-to analysis for the mbeddr C language. 				
+				IncA is a program analysis framework. It comes with a DSL for the definition of program analyses 
+				and the runtime system evaluates program analyses incrementally to achieve the performance that is needed for 
+				real-time feedback in IDEs. When code gets changed, the IncA runtime system incrementally updates the results instead of 
+				the repeated recomputation from scratch. IncA program analysis code is translated into graph patterns and we reuse existing incremental 
+				graph pattern matching solutions to evaluate the analysis code on the AST of the analyzed program.
 				</p>
               </div>
             </div>
