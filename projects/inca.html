@@ -30,7 +30,9 @@
 				
 				<p align="justify">This website contains accompanying material to our PLDI 2016 paper about IncA.</p>
 			</div>
-        	<div class="content">
+			
+			<div class="paper project">
+        	<div class="thumbnail">
 				<div class="desc">
 					<h3>Table of contents:</h3>
 					<ol>
@@ -42,14 +44,22 @@
 					</ol>
 				</div>
 			</div>
+			<div class="thumbnail">
+				<div class="desc">
+					<h3>System Requirements:</h3>
+					<ul>
+						<li><a href="https://confluence.jetbrains.com/display/MPS/JetBrains+MPS+EAP+Download+Page">MPS 3.3</a></li>
+						<li>Java 1.8</li>
+						<li><a href="https://www.mbeddr.com">mbeddr</a> for the case studies</li>
+					</ul>
+				</div>
+			</div>
+			</div>
 
+		<div style="clear:both"></div>
 
         <div class="content">
 	        <h2 id="start">1 - Getting Started</h2>
-	        
-	        
-	        The IncA framework requires <a href="https://confluence.jetbrains.com/display/MPS/JetBrains+MPS+EAP+Download+Page">MPS 3.3</a> which runs with Java 1.8. 
-	        <h3>IncA only</h3>
 	        
 	        <p align="justify">
 	        The IncA source code is available on GitHub: <code>git clone https://github.com/szabta89/IncA</code>
@@ -79,7 +89,7 @@
 			
 			<p align="justify">
 			You can play around with mbeddr by navigating to the <code>test.ts.core.dataflow</code> module (Navigate -> Go to Module). 
-			This module contains mbeddr C code snippets which can be used to play around with IncA program analyses. Whenever you need to find a file in MPS 
+			This module contains mbeddr C code snippets which can be used to try out IncA program analyses. Whenever you need to find a file in MPS 
 			simply press CMD/CTRL + N and type in the name of the file you are looking for, then hit ENTER.
 			</p>
 			
@@ -165,7 +175,9 @@
 	        
 	        <p align="justify">We evaluated the performance of IncA program analyses on three case studies with programmatically introduced program changes:</p>
 	        <ul>
-	        	<li>We used the CFG and points-to analyses to analyze the <a href="https://github.com/regehr/itc-benchmarks">Toyota ITC benchmark code</a>.</li>
+	        	<li>We used the CFG and points-to analyses to analyze the <a href="https://github.com/regehr/itc-benchmarks">Toyota ITC benchmark code</a>. 
+	        	The mbeddr C equivalent of the Toyota ITC benchmark as an MPS project is available under the <code>code/plugins/inca/benchmark/toyota-itc</code> 
+	        	folder in the mbeddr checkout directory. </li>
 	        	<li>We evaluated the well-formedness rules on the code base 
 	        	of the <a href="http://voelter.de/data/pub/mbeddr-cs-oopsla2015-preprint.pdf">SmartMeter</a> project. 
 	        	This project is commercial, thus the code base is not available.</li>
@@ -175,10 +187,6 @@
 	        <p align="justify">
 	        We repeated each measurement five times and discarded the results of the first and second run to account for the Java VM warm-up.
 	        The raw memory and runtime measurement results are available for all case studies: [<a href="inca/measurements_runtime.xlsx">runtime</a>][<a href="inca/measurements_memory.xlsx">memory</a>].
-	        </p>
-			<p align="justify">	        
-			The mbeddr C equivalent of the Toyota ITC benchmark is available as part of the IncA project. 
-	        You can open it in MPS by navigating to the <code>code/plugins/inca/benchmark/toyota-itc</code> folder in the mbeddr checkout directory. 
 	        </p>
 	        <p align="justify">
 	        We are preparing a youtube video on how to reproduce the measurement results of the paper and it will be uploaded here soon.
