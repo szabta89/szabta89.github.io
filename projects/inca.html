@@ -34,8 +34,8 @@
 				<div class="desc">
 					<h3>Table of contents:</h3>
 					<ol>
+						<li><a href="#claims">Highlights of the project</a></li>
 						<li><a href="#start">Getting Started</a></li>
-						<li><a href="#claims">Claims of the Paper</a></li>
 						<li><a href="#casestudy">Case Studies</a></li>
 						<li><a href="#evaluation">Evaluation</a></li>
 					</ol>
@@ -45,7 +45,7 @@
 				<div class="desc">
 					<h3>System Requirements:</h3>
 					<ul>
-						<li><a href="https://confluence.jetbrains.com/display/MPS/JetBrains+MPS+EAP+Download+Page">MPS 3.3</a></li>
+						<li><a href="https://confluence.jetbrains.com/display/MPS/Download+MPS+3.3.4">MPS 3.3.4</a></li>
 						<li>Java 1.8</li>
 						<li><a href="https://www.mbeddr.com">mbeddr</a> for the case studies</li>
 					</ul>
@@ -55,8 +55,22 @@
 
 		<div style="clear:both"></div>
 
+		<div class="content">
+	        <h2 id="claims">1 - Highlights</h2>
+	        
+	        <ul>
+	        	<li>IncA provides a DSL for the definition of program analyses.</li>
+	        	<li>The compiler of IncA translates the program analysis code into a matching graph pattern representation.</li>
+	        	<li>The compiler performs an interprocedural data-flow analysis on the IncA program analysis code to conservatively 
+	        	approximate the types of AST nodes which can affect the analysis result. The runtime system uses the information to 
+	        	prune the AST changes that cannot affect the results thus reducing the runtime and memory requirement.</li>
+	        	<li>The IncA analysis DSL can be effectively used to define complex program analyses (see Case Studies).</li>
+	        	<li>The IncA runtime system can efficiently evaluate incremental program analyses on large code bases (see Evaluation).</li>
+	        </ul>
+        </div>
+
         <div class="content">
-	        <h2 id="start">1 - Getting Started</h2>
+	        <h2 id="start">2 - Getting Started</h2>
 	        
 	        <p align="justify">
 	        The IncA source code is available on GitHub: <code>git clone https://github.com/szabta89/IncA</code>
@@ -97,32 +111,13 @@
 			
 			<object width="420" height="315" data="https://www.youtube.com/embed/GVOGULKiVos"></object>
 
-			<h3>Virtual machine</h3>
-			
-			<p align="justify">
-			For the artifact evaluation track of PLDI we will create a virtual machine to provide a quick way for trying out the system. 
-	        </p>
-        </div>
-
-        <div class="content">
-	        <h2 id="claims">2 - Claims of the Paper</h2>
-	        
-	        <ul>
-	        	<li>IncA provides a DSL for the definition of program analyses.</li>
-	        	<li>The compiler of IncA translates the program analysis code into a matching graph pattern representation.</li>
-	        	<li>The compiler performs an interprocedural data flow analysis on the IncA program analysis code to conservatively 
-	        	approximate the types of AST nodes which can affect the analysis result. The runtime system uses the information to 
-	        	prune the AST changes that cannot affect the results thus reducing the runtime and memory requirement.</li>
-	        	<li>The IncA analysis DSL can be effectively used to define complex program analyses (see Case Studies).</li>
-	        	<li>The IncA runtime system can efficiently evaluate incremental program analyses on large code bases (see Evaluation).</li>
-	        </ul>
         </div>
 
         <div class="content">
 	        <h2 id="casestudy">3 - Case Studies</h2>
 	        
 	        <p align="justify">IncA program analysis code can be viewed and edited in MPS. However, MPS uses projectional editing and does not store the 
-	        program code in simple text format which makes it impossible to read the code outside of MPS. To ease the browsing of the program 
+	        program code in simple text format which makes it hard to read the code outside of MPS. To ease the browsing of the program 
 	        analyses code of our three case studies we make them available for download as a formatted pdf file and also in simple text format. 
 	        Developers of IncA code can use a JavaDoc like documentation extension and we used it document every function in the analysis code to 
 	        explain how the analyses work.</p>
