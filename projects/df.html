@@ -18,15 +18,8 @@
         </div>
 			<div class="content">
 			<a href="https://github.com/szabta89/IncA"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-				<p align="justify">IncA is a program analysis framework. It comes with a DSL for the definition of program analyses 
-				and the runtime system evaluates program analyses incrementally to achieve the performance that is needed for 
-				real-time feedback in IDEs. When code gets changed, the IncA runtime system incrementally updates the results instead of 
-				the repeated recomputation from scratch. IncA program analysis code is translated into graph patterns and we reuse existing incremental 
-				graph pattern matching solutions to evaluate the analysis code on the AST of the analyzed program. </p>
-				
-				<p align="justify">IncA consists of a program analysis language, an optimizing compiler and an efficient runtime system. 
-				We have created a concrete implementation of the system on top of the MPS language workbench and we reuse the incremental 
-				graph pattern matching component of the IncQuery project.</p>
+				<p align="justify">MPS-DF is a tool for data-flow analyses of programs designed in MPS. It provides the DSL for building the data-flow graph of a program, DSL for defining the data-flow analyses and the API for evaluating the analyses and obtaining it's result.
+					Additionally it provides the visualization tool for data-flow graph with the possibility to trace from data-flow graph nodes to program AST nodes.</p>
 			</div>
 			
 			<div class="paper project">
@@ -36,8 +29,10 @@
 					<ol>
 						<li><a href="#claims">Highlights of the project</a></li>
 						<li><a href="#start">Getting Started</a></li>
-						<li><a href="#casestudy">Case Studies</a></li>
+						<li><a href="#builders">Data-flow builders</a></li>
+						<li><a href="#analyses">Analyses</a></li>
 						<li><a href="#evaluation">Evaluation</a></li>
+						<li><a href="#extensibility">Evaluation</a></li>
 					</ol>
 				</div>
 			</div>
@@ -59,13 +54,9 @@
 	        <h2 id="claims">1 - Highlights</h2>
 	        
 	        <ul>
-	        	<li>IncA provides a DSL for the definition of program analyses.</li>
-	        	<li>The compiler of IncA translates the program analysis code into a matching graph pattern representation.</li>
-	        	<li>The compiler performs an interprocedural data-flow analysis on the IncA program analysis code to conservatively 
-	        	approximate the types of AST nodes which can affect the analysis result. The runtime system uses the information to 
-	        	prune the AST changes that cannot affect the results thus reducing the runtime and memory requirement.</li>
-	        	<li>The IncA analysis DSL can be effectively used to define complex program analyses (see Case Studies).</li>
-	        	<li>The IncA runtime system can efficiently evaluate incremental program analyses on large code bases (see Evaluation).</li>
+	        	<li>MPS-DF provides a DSL for building the data-flow graph, an intermediate program representation</li>
+	        	<li>MPS-DF provides a DSL for data-flow analyses. Data-flow analyses derives information from the data-flow graph of the program.</li>
+	        	<li>The result can be used in checking rules for highlighting errors in program or in generator for the optimization of generated code.</li>
 	        </ul>
         </div>
 
@@ -73,130 +64,57 @@
 	        <h2 id="start">2 - Getting Started</h2>
 	        
 	        <p align="justify">
-	        The IncA source code is available on GitHub: <code>git clone https://github.com/szabta89/IncA</code>
-			Once cloned, you can simply open the project under the <code>code</code> folder in MPS. The project contains the DSL language implementation 
-			and MPS solutions for the IncA runtime system. Inside the tests folder there are examples for simple program analyses. 
+	        The MPS-DF comes as a built-in aspect of defining language in MPS. To get started you can just download MPS <a href="https://confluence.jetbrains.com/display/MPS/Download+MPS+3.3.4">MPS 3.3.4</a>
+				and start designing the language. (??)
+				Alternatively you can check out MPS source code from <a href="https://github.com/JetBrains/MPS">GitHub</a> and play around with existing language with data-flow aspect defined.
+				The most complete example is data-flow aspect of baseLanguage which is MPS implementations of Java.
+				To create data-flow aspect of your language you need to right-click on the language, and choose New->DataFlow Aspect.
+
 			 </p>
-			 
-			<h3>IncA + mbeddr for the case studies</h3>
-			
-			<p align="justify">
-			Using IncA with the case studies requires <a href="https://www.mbeddr.com">mbeddr</a> as well, which is set of integrated languages for embedded software development 
-			also built on top of MPS. The following steps are required to get you started:
-			
-			<ul>
-				<li>Clone mbeddr <code>https://github.com/mbeddr/mbeddr.core.git</code> and checkout the <code>feature/inca</code> branch of the repository.</li>
-				<li>The IncA system is integrated into mbeddr as a git submodule because we already started to use it for the development of mbeddr. 
-				In order to checkout IncA as a submodule run the <code>git submodule update --recursive --init</code> command in the mbeddr checkout folder. </li>
-				<li>Navigate to the <code>code/languages</code> folder in the mbeddr checkout folder and execute the <code>buildLanguages.sh</code> or 
-				<code>buildLanguages.bat</code> file based on your platform. This will build the language artifacts of IncA and complete mbeddr. 
-				On a modern machine this requires 15-20 mins and this operation is only required once before the first usage of mbeddr.</li>
-				<li>Open the project under <code>code/languages/com.mbeddr.core</code> from the mbeddr checkout folder in MPS. This opens up mbeddr, which 
-				is an IDE for C software development.</li>
-				<li>In order for MPS to find all the generated code of mbeddr, you need to set up a path variable with the name <code>mbeddr.github.core.home</code>
-				which must point to the checkout folder of mbeddr on your machine. Setting a path 
-				variable is possible from the Preferences/Settings page's Build, Execution, Deployment tab. </li>
-			</ul>
-			</p>
-			
-			<h3>Navigating in mbeddr</h3>
-			
-			<p align="justify">
-			You can play around with mbeddr by navigating to the <code>test.ts.core.dataflow</code> module (Navigate -> Go to Module). 
-			This module contains mbeddr C code snippets which can be used to try out IncA program analyses. Whenever you need to find a file in MPS 
-			simply press CMD/CTRL + N and type in the name of the file you are looking for, then hit ENTER.
-			</p>
-			
-			The following <a href="https://www.youtube.com/watch?v=GVOGULKiVos">YouTube video</a> also guides you through the first steps. 
-			
-			<object width="420" height="315" data="https://www.youtube.com/embed/GVOGULKiVos"></object>
 
         </div>
 
         <div class="content">
-	        <h2 id="casestudy">3 - Case Studies</h2>
-	        
-	        <p align="justify">IncA program analysis code can be viewed and edited in MPS. However, MPS uses projectional editing and does not store the 
-	        program code in simple text format which makes it hard to read the code outside of MPS. To ease the browsing of the program 
-	        analyses code of our three case studies we make them available for download as a formatted pdf file and also in simple text format. 
-	        Developers of IncA code can use a JavaDoc like documentation extension and we used it document every function in the analysis code to 
-	        explain how the analyses work.</p>
-	        
-	        <h3>Control Flow Analysis [<a href="inca/cfg.pdf">pdf</a>][<a href="inca/cfg.txt">text</a>]</h3>
-	        
-	        <p align="justify">We implemented an incremental control flow analysis that handles all of mbeddr C, 
-	        including conditionals (if and switch), loops (for, while, and do while), and jumps (break and continue). 
-	        The control flow analysis produces the sets of CFG edges where a CFG node represents a possible control flow point like 
-	        a statement, alternative switch case branches or else if parts of if statements. The analysis code can be viewed as a declarative 
-	        description of CFG source - target relationships in the context of the various control statements. </p>
-	        
-	         The ControlFlowAnalysis module contains the implementation in MPS (look it up with the CMD/CRTL + N keys). 
-	        
-	        <h3>Points-to Analysis [<a href="inca/pointsto.pdf">pdf</a>][<a href="inca/pointsto.txt">text</a>]</h3>
-	        
-	        <p align="justify">Given a variable that stores a pointer, the goal of a points to analysis is to identify the possible targets of the variable. 
-	        A well-known algorithm for computing the points-to tuples is Andersen's algorithm. The algorithm considers four basic 
-	        kinds of assignments and derives the points-to relation for the whole program from them.
-	        <br><br>
-	        Our points-to analysis in IncA builds on Andersen’s rules but extends them in three ways. First, by implementing 
-	        the analysis in IncA we immediately improve the runtime after code changes through incrementality. Second, we add 
-	        flow-sensitivity by building on top of our incremental control flow analysis. Third, we do not require the code to 
-	        only use the four kinds of assignments in Andersen’s rules, rather support all of mbeddr C except pointer arithmetics.
-	        </p>
-	        
-	         The PointsToAnalysis module contains the implementation in MPS. 
-	        
-	        <h3>Well-formedness Checks for mbeddr C Code [<a href="inca/wellformedness.pdf">pdf</a>][<a href="inca/wellformedness.txt">text</a>]</h3>
-	        
-	        We implemented four well-formedness checks for mbeddr C and its language extensions. 
-	        <ul>
-	        	<li>CYCLE: mbeddr C provides modules for organizing code. This check detects cyclic dependencies between modules.</li>
-				<li>GLOBAL: This check detects conflicting global variables with the same name across modules.</li>
-				<li>REC: This check detects recursive functions by construction and inspection of a call graph. 
-				In embedded systems with constrained memory, the stack space required for recursive functions is often unacceptable.</li>
-				<li>COMP mbeddr C supports interfaces and composable components. This check detects components that fail to imple- ment all functions declared by their interfaces.</li>
-	        </ul>
-	        
-	        The WellFormedness module contains the implementation in MPS. 
-	        
-	        <h3>FindBugs for Java [<a href="inca/findbugs.pdf">pdf</a>][<a href="inca/findbugs.txt">text</a>]</h3>
-	        
-	        <p>We implemented 10 FindBugs rules with IncA. The <a href="http://findbugs.sourceforge.net/bugDescriptions.html">original identifiers</a> of the rules 
-	        are as follows; CI_CONFUSED_INHERITANCE, EQ_ABSTRACT_SELF, CO_SELF_NO_OBJECT, SE_NO_SUITABLE_CONSTRUCTOR, IMSE_DONT_CATCH_IMSE, UUF_UNUSED_FIELD, FI_PUBLIC_SHOULD_BE_PROTECTED, DM_RUN_FINALIZERS_ON_EXIT,
-	        HE_EQUALS_USE_HASHCODE, ES_COMPARING_STRINGS_WITH_EQ.</p>
-	        
-	        The FindBugs module contains the implementation in MPS.
-	        
+	        <h2 id="builders">3 - Data-flow Builders</h2>
+	        In MPS programs are represented as abstract syntax trees (AST) which are the directed graphs of nodes.
+			Data-flow builders associate node with the part of data-flow graph. Data-flow graph is
+			an intermediate program representation that represents data- flow information in the program as nodes (for example, read and write nodes) and
+			encodes the control flow between the nodes as directed edges.
+			Thus program is associated with the data-flow graph. Builders are expressed with the DSL.
+			the language specification and examples can be found: <a href="https://confluence.jetbrains.com/display/MPSD33/Dataflow"> here</a>
+			To create the builder you need just to right-click on the data-flow aspect model and choose New->Data-Flow Builder.
+
+			The data-flow graph of the program can be visualized. You can right-click on any node, i.e. baseLanguage method and choose Language Debug->Show Data Flow Graph.
+			You can trace from data-flow graph node to the program node it associated with just clicking on the data-flow graph node.
+
+			The following <a href="https://www.youtube.com/watch?v=VfpIzHmUqpE">video</a> is helpful for getting started.
         </div>
 
+		  <div class="content">
+			  <h2 id="analyses">3 - Analyses</h2>
+			  Custom analyses can be defined.
+
+		  </div>
+
         <div class="content">
-	        <h2 id="evaluation">4 - Evaluation</h2>
-	        
-	        <p align="justify">We evaluated the performance of IncA program analyses on three case studies with programmatically introduced program changes:</p>
-	        <ul>
-	        	<li>We used the CFG and points-to analyses to analyze the <a href="https://github.com/regehr/itc-benchmarks">Toyota ITC benchmark code</a>. 
-	        	The mbeddr C equivalent of the Toyota ITC benchmark as an MPS project is available under the <code>code/plugins/inca/benchmark/toyota-itc</code> 
-	        	folder in the mbeddr checkout directory. </li>
-	        	<li>We evaluated the well-formedness rules on the code base 
-	        	of the <a href="http://voelter.de/data/pub/mbeddr-cs-oopsla2015-preprint.pdf">SmartMeter</a> project. 
-	        	This project is commercial, thus the code base is not available.</li>
-	        	<li>We used the IncA FindBugs rules to check the mbeddr importer code base for bug patterns. 
-	        	The mbeddr importer is a commercial project, thus the code base is not available.</li>
-	        </ul>
-	        <p align="justify">
-	        We repeated each measurement five times and discarded the results of the first and second run to account for the Java VM warm-up.
-	        The raw memory and runtime measurement results are available for all case studies: [<a href="inca/measurements_runtime.xlsx">runtime</a>][<a href="inca/measurements_memory.xlsx">memory</a>].
-	        </p>
-	        <p align="justify">
-	        The following <a href="https://www.youtube.com/watch?v=Ox7Y3xJDOvA">YouTube video</a> guides you through the case studies and the performance evaluation. 
-			
-			<object width="420" height="315" data="https://www.youtube.com/embed/Ox7Y3xJDOvA"></object>
-	        </p>
+	        <h2 id="evaluation">5 - Evaluation</h2>
+			The common case for evaluating the data-flow analysis is checking the program and highlighting the errors.
+			In MPS it is done in checking rules of <a href="https://confluence.jetbrains.com/display/MPSD33/Typesystem">typesystem</a>.
+			MPS provides the API for evaluating either common analysis i.e.uninitialized reads, unreachable instructions and unused assignments or custom analyses.
+			The common analysis could be evaluaated via building the program with MPSProgramBuilder.buildProgram() method and passing the result to the util class DataFlow.
+			The example could be found at "check_UninitializedLocalField" rule.
+
+			The custom analyses can be evaluate with the special construction "analyzerRunner". To use this construction you need to import language jetbrains.mps.lang.dataDlow.analyzers
         </div>
-        
+
+		  <div class="content">
+	        <h2 id="extensibility">6 - Extensibility</h2>
+
+        </div>
+
         <div style="clear:both"></div>
         <div class="footer">
-          Page was generated from <a href="https://github.com/szabta89/szabta89.github.io">github.com/szabta89/szabta89.github.io</a>. 
+          Page was generated from <a href="https://github.com/szabta89/szabta89.github.io">github.com/szabta89/szabta89.github.io</a>.
         </div>
       </div>
       <script type="text/javascript">
