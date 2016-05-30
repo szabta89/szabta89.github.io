@@ -17,11 +17,29 @@
         <br/>
     </div>
     <div class="content">
-        <p align="justify">MPS-DF is a tool for data-flow analyses of programs designed in MPS. It provides the DSL for
-            building the data-flow graph of a program, DSL for defining the data-flow analyses and the API for
-            evaluating the analyses and obtaining it's result.
-            Additionally it provides the visualization tool for data-flow graph with the possibility to trace from
-            data-flow graph nodes to program AST nodes.</p>
+        <p align="justify">MPS-DF is the data-flow support in the MPS language workbench. It supports the definition 
+        and efficient execution of <b>data-flow analyses</b>. Users of MPS-DF first define <b>data-flow builders</b> for the analyzed 
+        language. These builders contribute subgraphs to the <b>data-flow graph (DFG)</b>, an intermediate program representation 
+        encoding the data-flow of the analyzed program. MPS-DF then supports defining data-flow analyses, on the DFG, which 
+        compute some data-flow specific knowledge (e.g. which variables are initialized) about the program. These data-flow 
+        analyses are static program analyses, which derive the knowl- edge without actually running the analyzed program. Finally, 
+        existing MPS components, such as program validators, transformations or refactorings, make use of this knowledge.</p>
+        
+        <p>
+        MPS-DF has two important characteristics: extensibility and variable precision.
+        <ul>
+        	<li align="justify"><b>Extensibility</b> is motivated by the fact that MPS-based languages are extensible themselves (wrt. syntax, semantics, IDE support). 
+        	It comes in two flavours: first, builders enable extensibility of the DFG in the face of language extensions of the analyzed language. 
+        	This means that an existing analysis immediately works on an extended program if the concepts in the language extension also define 
+        	builders and thus contribute subgraphs to the DFG. The second flavour of extensibility supports augmenting the DFG for a particular 
+        	analysis with custom nodes that encode specific knowledge about the analyzed program and potentially override an analysis result based on that knowledge.</li>
+        	<li align="justify"><b>Variable precision</b> considers performance trade-offs: real-time checks in the IDE must run fast, possibly compromising on precision, 
+        	whereas a more precise, but slower, analysis is needed during compilation. We achieve the variable precision by switching between 
+        	intra-procedural analysis (within a sin- gle function definition) and inter-procedural analysis (across function definitions). 
+        	Switching is achieved by constructing two different DFGs, but running the same analyses.</li>
+        </ul>
+        </p>
+        
     </div>
 
     <div class="paper project">
@@ -38,11 +56,11 @@
         </div>
         <div class="thumbnail">
             <div class="desc">
-                <h3>System Requirements:</h3>
+                <h3>Software Requirements:</h3>
                 <ul>
-                    <li><a href="https://confluence.jetbrains.com/display/MPS/Download+MPS+3.3.4">MPS < LINK HERE ></a></li>
+                    <li><a href="https://drive.google.com/folderview?id=0B7n4tuU3Ty7eZkZCNFQ4RDBSdDg&usp=sharing">MPS 3.3.4</a></li>
                     <li>Java 1.8</li>
-                    <li><a href="https://www.mbeddr.com">mbeddr</a> for the case studies</li>
+                    <li><a href="https://www.mbeddr.com">mbeddr</a> for the inter-procedural analyses and the case studies</li>
                 </ul>
             </div>
         </div>
@@ -53,42 +71,33 @@
     <div class="content">
         <h2 id="claims">1 - Highlights</h2>
         <ul>
-            <li>MPS-DF provides a DSL for building the data-flow graph, an intermediate program representation</li>
-            <li>MPS-DF provides a DSL for data-flow analyses. Data-flow analyses derives information from the data-flow
-                graph of the program.
-            </li>
-            <li>Analyses could be evaluated in different modes: intra-procedural and inter-procedural</li>
-            <li>The result can be used in checking rules for highlighting errors in program or in generator for the
-                optimization of generated code.
-            </li>
+            <li align="justify">MPS-DF provides a DSL for the definition of data-flow graph builders. Builders contribute subgraphs to the data-flow graph, 
+                which is an intermediate program representation encoding the control flow of the program together with the data-flow.</li>
+            <li align="justify">MPS-DF provides a DSL for the definition of data-flow analyses which derive some data-flow specific knowledge on the DFG of the analyzed program.</li>
+            <li align="justify">MPS-DF provides extensive support for extensibility which aligns perfectly with the support for language extensions in MPS.</li>
+            <li align="justify">Data-flow analyses can be evaluated with varying precision levels; clients can switch between a more precise and potentially slower inter-procedural 
+                analysis and a less precise but faster intra-procedural analysis. </li>
+            <li align="justify">Results of MPS-DF analyses can immediately be used in already existing MPS components: validation rules, generators, refactorings.</li>
         </ul>
+        
+        The following video also highlights the various aspects of the project:
+		<object width="420" height="315" data="https://www.youtube.com/embed/laNDAZCe2jM"></object>
     </div>
 
     <div class="content">
         <h2 id="start">2 - Getting Started</h2>
 
-        <h3 id="MPS_start"> - MPS</h3>
-
         <p align="justify">
-            The MPS-DF comes as a built-in aspect of defining language in MPS. MPS is a language workbench. You can find
-            the guide for MPS <a href="https://confluence.jetbrains.com/display/MPSD33/MPS+User's+Guide">here</a>.
-        <p>MPS-DF will be the part of MPS since version 3.4 which comes this summer.</p>
-        <p>To get started and play around you need to download nightly build of MPS which is available here...</p>
-
-        <h3 id="Mbeddr_start"> - Mbeddr for case studies</h3>
-        For case studies you will need to download and install <a href="https://www.mbeddr.com">mbeddr</a> which is set
-        of integrated languages for embedded software development also built on top of MPS.
-        <li>Clone mbeddr <code>https://github.com/mbeddr/mbeddr.core.git</code> and checkout the <code>feature/contextsensitive</code>
-            branch of the repository (is that true way?).
-        </li>
-
-        <p align="justify">
-            Whenever you need to find a file in MPS simply press CMD/CTRL + N and type in the name of the file you are
-            looking for, then hit ENTER.
-
-            To create data-flow aspect of your language you need to right-click on the language, and choose
-            New->DataFlow Aspect.
-        </p>
+        At the time of the ASE submission only the intra-procedural part of MPS-DF is integrated into MPS. The inter-procedural part is 
+        part of the mbeddr project and it is being integrated into core MPS during the summer. The plan is that the upcoming major release of 
+        MPS (version 3.4) will already contain all MPS-DF components. </p>
+        
+        <p align="justify">You can download the corresponding MPS version from <a href="https://drive.google.com/folderview?id=0B7n4tuU3Ty7eZkZCNFQ4RDBSdDg&usp=sharing">here</a> 
+        and you may find the <a href="https://confluence.jetbrains.com/display/MPSD33/MPS+User's+Guide">MPS user guide</a> interesting as well.</p>
+        
+		<p align="justify">You can obtain the inter-procedural part along with the case studies from the <a href="https://www.mbeddr.com">mbeddr</a> repository. Simply check out the <code>feature/mps-df</code> branch which 
+		also contains the example projects used in the paper and in the above video for demonstration. The relevant MPS modules for the inter-procedural 
+		data-flow analyses are the <code>com.mbeddr.mpsutil.dataflow</code> language and the <code>com.mbeddr.mpsutil.dataflow.runtime</code> solution from the mpsutil project in mbeddr. </p>
 
         <p class="content">
         <h2 id="case_studies">3 - Case studies </h2>
