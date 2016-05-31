@@ -135,7 +135,13 @@
 		<p align="justify"><b>Analysis direction</b>: backward, because the current value of a variable may be read in the future, thus we need to propagate the information from the back to the front.</p>
 		<p align="justify"><b>Must/May property</b>: may analysis, because we consider a variable live if it is read on any of the succeeding execution paths.</p>
         
-        <h3>Null Analysis for Java</h3>
+        <h3>Null Analysis for Java (Nullable)</h3>
+        
+        <p align="justify"><b>Synopsis</b>: </p>
+		<p align="justify"><b>Lattice element</b>: </p>
+		<p align="justify"><b>Analysis direction</b>: </p>
+		<p align="justify"><b>Must/May property</b>: </p>
+        
         Nullable analyses finds variables that could be null at the point they should not be, i.e at the method call.
         <p>This Analyses is forward same as Initialized variable analyses from case study 1.</p>
         Its lattice is defined as <code>map< node, NullableState></code> and it encodes the state of each expression and variable on
