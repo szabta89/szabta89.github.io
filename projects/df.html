@@ -108,7 +108,7 @@
     	
     	<h3>Points-to Analysis for C (PointsTo)</h3>
         
-        <p align="justify"><b>Synposis</b>: Derives the possible targets of a pointer typed variable at a program point (DFG node).</p>
+        <p align="justify"><b>Synopsis</b>: Derives the possible targets of a pointer typed variable at a program point (DFG node).</p>
 		<p align="justify"><b>Lattice element</b>: <code>Map&lt;node&lt;Var&gt;, Set&lt;node&lt;Var&gt;&gt;&gt;</code> which represents a mapping from variables to set of variables.</p>
 		<p align="justify"><b>Analysis direction</b>: forward, because the points-to relationship is something that happened in the past and we carry that over to later nodes in the DFG.</p>
 		<p align="justify"><b>Must/May property</b>: must analysis, because we want this analysis to be a sound analysis, claiming that a variable points to another only if this relationship holds
@@ -116,7 +116,7 @@
     	
         <h3>Initialized Variables Analysis for C (InitializedVariables)</h3>
         
-        <p align="justify"><b>Synposis</b>: Derives which variables are definitely initialized at a program point (DFG node).</p>
+        <p align="justify"><b>Synopsis</b>: Derives which variables are definitely initialized at a program point (DFG node).</p>
 		<p align="justify"><b>Lattice element</b>: <code>Set&lt;node&lt;Var&gt;&gt;</code> which represents the set of initialized variables.</p>
 		<p align="justify"><b>Analysis direction</b>: forward, because the initialized property is something that happened in the past and we carry that over to later nodes in the DFG.</p>
 		<p align="justify"><b>Must/May property</b>: must analysis, because we want this analysis to be a sound analysis, claiming the initialized property about a variable only when it 
@@ -129,7 +129,7 @@
 		
         <h3>Liveness Analysis for C (Liveness)</h3>
         
-        <p align="justify"><b>Synposis</b>: The analysis derives which variables are live at a program point (DFG node), 
+        <p align="justify"><b>Synopsis</b>: The analysis derives which variables are live at a program point (DFG node), 
         where live means that the current value of the variable may be read during the remaining execution of the program. </p>
 		<p align="justify"><b>Lattice element</b>: <code>Set&lt;node&lt;Var&gt;&gt;</code> which represents the set of live variables.</p>
 		<p align="justify"><b>Analysis direction</b>: backward, because the current value of a variable may be read in the future, thus we need to propagate the information from the back to the front.</p>
