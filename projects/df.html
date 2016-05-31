@@ -50,7 +50,6 @@
                     <li><a href="#claims">Highlights of the project</a></li>
                     <li><a href="#start">Getting Started</a></li>
                     <li><a href="#case_studies">Case studies</a></li>
-                    <li><a href="#evaluation">Evaluation</a></li>
                 </ol>
             </div>
         </div>
@@ -66,9 +65,7 @@
         </div>
     </div>
 
-    <div style="clear:both"></div>
-
-    <div class="content">
+    <div style="clear:both" class="content">
         <h2 id="claims">1 - Highlights</h2>
         <ul>
             <li align="justify">MPS-DF provides a DSL for the definition of data-flow graph builders. Builders contribute subgraphs to the data-flow graph, 
@@ -98,32 +95,47 @@
 		<p align="justify">You can obtain the inter-procedural part along with the case studies from the <a href="https://www.mbeddr.com">mbeddr</a> repository. Simply check out the <code>feature/mps-df</code> branch which 
 		also contains the example projects used in the paper and in the above video for demonstration. The relevant MPS modules for the inter-procedural 
 		data-flow analyses are the <code>com.mbeddr.mpsutil.dataflow</code> language and the <code>com.mbeddr.mpsutil.dataflow.runtime</code> solution from the mpsutil project in mbeddr. </p>
-
-        <p class="content">
-        <h2 id="case_studies">3 - Case studies </h2>
-        <h3>Case study 1 - Inter-procedural Initialized Variables Analyses [<a href="df/InitializedVars.pdf">pdf</a>][<a href="df/InitializedVars.txt">text</a>]</h3>
-        Initialized variable analyses finds variables that are not initialized in the moment of reading and lets the
-        corresponding checking rule highlight them as errors.
-        <p>Its lattice is defined as <code>set< node < Var > ></code> and it encodes the set of definitely initialized
-            variables at a program point.</p>
-        <p>
-            The <b>forward</b> direction specifies that the analyses traversing of the program starts at the first
-            instruction
-        </p>
-        <p>
-            The <code>fun</code> function builds the set of variables for every node in the DFG.
-        </p>
-        <p>When <code>fun</code> encounters a <code>write</code> instruction in the DFG, it adds the written variable to
-            the set because that variable is now definitely initialized.</p>
-        <p>When <code>fun</code> encounters a <code>defInit</code> instruction it adds the definitely initialized
-            variable to the set because, by the meaning of the instruction, the variable is initialized.</p>
-        <p>The merge function uses intersection for this particular analysis, because we build a must analysis which
-            considers a variable initialized only if it is initialized on all incoming execution paths.</p>
-        <p>
-            You can find the it's declaration in "<code>InitializedVariablesAnalyzer</code>" root in <code>com.mbeddr.core.modules.dataFlow</code>
-            model
-        <p>
-        <h3>Case study 2 - Intra-procedural Nullable Analyses [<a href="df/Nullable.pdf">pdf</a>][<a href="df/Nullable.txt">text</a>]</h3>
+	</div>
+    
+    <div class="content">
+    	<h2 id="case_studies">3 - Case studies </h2>
+    	
+    	<p align="justify">We have developed several data-flow analyses for C in mbeddr and for Java in MPS itself. The analyses implementations are ready available 
+    	once you obtained the above mentioned software components. 
+    	
+    	In order to find these analysis implementations you simply need to press CTRL (or CMD) + N in MPS and type in the analysis name. 
+    	MPS will automatically jump to the declaration of the analyses. The name of the analyses are given below in parentheses.</p>
+    	
+    	<h3>Points-to Analysis for C (PointsTo)</h3>
+        
+        <p align="justify"><b>Synposis</b>: Derives the possible targets of a pointer typed variable at a program point (DFG node).</p>
+		<p align="justify"><b>Lattice element</b>: <code>Map&lt;node&lt;Var&gt;, Set&lt;node&lt;Var&gt;&gt;&gt;</code> which represents a mapping from variables to set of variables.</p>
+		<p align="justify"><b>Analysis direction</b>: forward, because the points-to relationship is something that happened in the past and we carry that over to later nodes in the DFG.</p>
+		<p align="justify"><b>Must/May property</b>: must analysis, because we want this analysis to be a sound analysis, claiming that a variable points to another only if this relationship holds
+		 on all execution paths that lead to a program point.</p>
+    	
+        <h3>Initialized Variables Analysis for C (InitializedVariables)</h3>
+        
+        <p align="justify"><b>Synposis</b>: Derives which variables are definitely initialized at a program point (DFG node).</p>
+		<p align="justify"><b>Lattice element</b>: <code>Set&lt;node&lt;Var&gt;&gt;</code> which represents the set of initialized variables.</p>
+		<p align="justify"><b>Analysis direction</b>: forward, because the initialized property is something that happened in the past and we carry that over to later nodes in the DFG.</p>
+		<p align="justify"><b>Must/May property</b>: must analysis, because we want this analysis to be a sound analysis, claiming the initialized property about a variable only when it 
+		is guaranteed to have been initialized on all execution paths that lead to a program point.</p>
+		<p align="justify"><b>Custom instructions</b>: The analysis uses only one custom instruction, <code>defInit(node&lt;Var&gt; target)</code>, which represents a definitely initialized variable. 
+		The presence of the custom instruction in the DFG overrides the analysis result by considering the target variable initialized.</p>
+		<p align="justify"><b>Other</b>: The analysis uses the results of the points-to analysis to know which pointer typed variables point to which other variables.
+		This is necessary, because whenever an assignment of the form <code>*a = 10;</code> happens, we do not directly initialize the variable 
+		<code>a</code>, but those variables which <code>a</code> may point to. </p>
+		
+        <h3>Liveness Analysis for C (Liveness)</h3>
+        
+        <p align="justify"><b>Synposis</b>: The analysis derives which variables are live at a program point (DFG node), 
+        where live means that the current value of the variable may be read during the remaining execution of the program. </p>
+		<p align="justify"><b>Lattice element</b>: <code>Set&lt;node&lt;Var&gt;&gt;</code> which represents the set of live variables.</p>
+		<p align="justify"><b>Analysis direction</b>: backward, because the current value of a variable may be read in the future, thus we need to propagate the information from the back to the front.</p>
+		<p align="justify"><b>Must/May property</b>: may analysis, because we consider a variable live if it is read on any of the succeeding execution paths.</p>
+        
+        <h3>Null Analysis for Java</h3>
         Nullable analyses finds variables that could be null at the point they should not be, i.e at the method call.
         <p>This Analyses is forward same as Initialized variable analyses from case study 1.</p>
         Its lattice is defined as <code>map< node, NullableState></code> and it encodes the state of each expression and variable on
@@ -163,22 +175,6 @@
             <code>jetbrains.mps.baseLanguage.dataFlow</code> model
 
     </div>
-
-    <div class="content">
-        <h2 id="evaluation">5 - Evaluation</h2>
-        The common case for evaluating the data-flow analysis is checking the program and highlighting the errors.
-        In MPS it is done in checking rules of <a href="https://confluence.jetbrains.com/display/MPSD33/Typesystem">typesystem</a>.
-        MPS provides the API for evaluating either common analysis i.e.uninitialized reads, unreachable instructions and
-        unused assignments or custom analyses.
-        The common analysis could be evaluated via building the program with MPSProgramBuilder.buildProgram() method
-        and passing the result to the util class DataFlow.
-        <p>
-        The custom analyses can be evaluate with the special construction "analyzerRunner". To use this construction you
-        need to import language jetbrains.mps.lang.dataDlow.analyzers
-        </p>
-        The examples of evaluating the case studies could be found at <code>InitializedVariablesAnalyzerHelper</code> and at <code>check_NullableStates</code> checking rule.
-    </div>
-
 
 </div>
 
