@@ -137,49 +137,35 @@
         
         <h3>Null Analysis for Java (Nullable)</h3>
         
-        <p align="justify"><b>Synopsis</b>: </p>
-		<p align="justify"><b>Lattice element</b>: </p>
-		<p align="justify"><b>Analysis direction</b>: </p>
-		<p align="justify"><b>Must/May property</b>: </p>
-        
-        Nullable analyses finds variables that could be null at the point they should not be, i.e at the method call.
-        <p>This Analyses is forward same as Initialized variable analyses from case study 1.</p>
-        Its lattice is defined as <code>map< node, NullableState></code> and it encodes the state of each expression and variable on
-        each program point.
-        Nullable state can be one of the follows: NOTNULL, NULL, NULLABLE, UNKNOWN, NOT_INIT.
+        <p align="justify"><b>Synopsis</b>: The analysis derives whether the variable or expression is definitely null, definitely not null or can be null.</p>
+        <p>Its result may help preventing programming errors  i.e. calling the instance method on the object that was assigned to <code>null</code></p>
+		<p align="justify"><b>Lattice element</b>: <code>Map&lt;node, NullableState&gt;</code> which represents the state of expression/variable at each program point
+            <p>Nullable state can be one of the follows: NOTNULL, NULL, NULLABLE</p>
         <p>
-            <code>NOTNULL</code> - means that expression is definitely not null at this program point.
+            <code>NOTNULL</code> - means that expression/variable is definitely not null at this program point.
         <p>
-            <code>NULL</code> - definitely null.
+            <code>NULL</code> - expression/variable is definitely null.
         <p>
-            <code>NULLABLE</code> - expression can be null.
-        <p>
-            <code>UNKNOWN</code> - no definite information could be told.
-        <p>
-            <code>NOT_INIT</code>- variable is not initialized.
-        <p>
-
-            Analyses uses three custom instructions: <code>nullable</code>, <code>notNull</code> and <code>null</code>
+            <code>NULLABLE</code> - expression/variable can be null.
+        <p>Those elements themselves define the lattice</p>
+        <img src="df/NULLABLE-2.png" style="width:400px;height:266px;">
+        <p> </p>
+		<p align="justify"><b>Analysis direction</b>:forward, because the state of the expression/variable depends on what it was assigned to which happened in the past. </p>
+		<p align="justify"><b>Must/May property</b>:must analysis, because we want this analysis to be a sound analysis, claiming that variable is definitely null/not null only if this fact holds on
+            all execution paths that lead to a program point. If on the on path the variable is definitely null and on the other it is definitely not null that means that at the program point it is nullable</p>
+        <p align="justify"><b>Custom instructions</b>:The analysis uses three custom instructions: <code>nullable</code>, <code>notNull</code> and <code>null</code>
             with the parameter of expression.
 
-        <p><code>nullable</code> is inserted to the graph i.e. when variable is annotated with the<code>@Nullable</code> annotation.
-        <p><code>notNull</code> is inserted i.e. if variable is annotated with the <code>@NotNull</code> annotation or
-            the variable is assigned to the definitely not null expression.</p>
-        <p><code>null</code> is inserted for the <code>null</code> literals.</p>
+        <p><code>nullable</code> is inserted to the graph when the variable is annotated with the<code>@Nullable</code> annotation.
+        <p><code>notNull</code> is inserted if the variable is annotated with the <code>@NotNull</code> annotation or
+            the variable/expression is assigned to the definitely not null expression, i.e. <code>new Object</code>.</p>
+        <p><code>null</code> is inserted for the variables and expressions assigned to <code>null</code> literal.</p>
+
+        <p>The analysis handles these custom instructions and set the corresponding state to the variables/expression. Also it handles non-custom <code>write</code> instructions and assigns the
+            state of the <code>write</code> value to the variable which is written</p>
         <p>
 
-        <p>The <code>fun</code> function assigns the <code>UNKNOWN</code> state to the expression if the instruction is not one of the three custom.</p>
-        <p>It assigns the corresponding <code>NOTNULL</code>, <code>NULL</code> or <code> NULLABLE</code> state to the expression if the instruction is either
-            <code>notNull</code>, <code>null</code> or <code>nullable</code></p>
-        <p>The <code>fun</code> function encounters <code>write</code> instruction, it assigns the state of the expression to the written variabl</p>
-        <p>The <code>merge</code> function reduces the information about the state. I.e. it returns <code>NULL</code> or <code>NOTNULL</code> only if in
-        both paths state of the expression is correspondingly <code>NULL</code> or <code>NOTNULL</code>. Otherwise it will return <code>NULLABLE</code></p>
-
-
         <p>
-            You can find the it's declaration in "NullableAnalyzer" root in
-            <code>jetbrains.mps.baseLanguage.dataFlow</code> model
-
     </div>
 
 </div>
