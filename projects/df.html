@@ -135,7 +135,7 @@
 		<p align="justify"><b>Analysis direction</b>: backward, because the current value of a variable may be read in the future, thus we need to propagate the information from the back to the front.</p>
 		<p align="justify"><b>Must/May property</b>: may analysis, because we consider a variable live if it is read on any of the succeeding execution paths.</p>
         
-        <h3>Null Analysis for Java (Nullable)</h3>
+        <!--<h3>Null Analysis for Java (Nullable)</h3>
         
         <p align="justify"><b>Synopsis</b>: The analysis derives whether the variable or expression is definitely null, definitely not null or can be null.</p>
         <p>Its result may help preventing programming errors  i.e. calling the instance method on the object that was assigned to <code>null</code></p>
@@ -163,9 +163,7 @@
 
         <p>The analysis handles these custom instructions and set the corresponding state to the variables/expression. Also it handles non-custom <code>write</code> instructions and assigns the
             state of the <code>write</code> value to the variable which is written</p>
-        <p>
-
-        <p>
+		-->
     </div>
 
 </div>
