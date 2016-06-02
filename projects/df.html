@@ -108,7 +108,7 @@
     	
     	<h3>Points-to Analysis for C (PointsTo)</h3>
         
-        <p align="justify"><b>Synopsis</b>: Derives the possible targets of a pointer typed variable at a program point (DFG node).</p>
+        <p align="justify"><b>Synopsis</b>: derives the possible targets of a pointer typed variable at a program point (DFG node).</p>
 		<p align="justify"><b>Lattice element</b>: <code>Map&lt;node&lt;Var&gt;, Set&lt;node&lt;Var&gt;&gt;&gt;</code> which represents a mapping from variables to set of variables.</p>
 		<p align="justify"><b>Analysis direction</b>: forward, because the points-to relationship is something that happened in the past and we carry that over to later nodes in the DFG.</p>
 		<p align="justify"><b>Must/May property</b>: must analysis, because we want this analysis to be a sound analysis, claiming that a variable points to another only if this relationship holds
@@ -116,7 +116,7 @@
     	
         <h3>Initialized Variables Analysis for C (InitializedVariables)</h3>
         
-        <p align="justify"><b>Synopsis</b>: Derives which variables are definitely initialized at a program point (DFG node).</p>
+        <p align="justify"><b>Synopsis</b>: derives which variables are definitely initialized at a program point (DFG node).</p>
 		<p align="justify"><b>Lattice element</b>: <code>Set&lt;node&lt;Var&gt;&gt;</code> which represents the set of initialized variables.</p>
 		<p align="justify"><b>Analysis direction</b>: forward, because the initialized property is something that happened in the past and we carry that over to later nodes in the DFG.</p>
 		<p align="justify"><b>Must/May property</b>: must analysis, because we want this analysis to be a sound analysis, claiming the initialized property about a variable only when it 
@@ -129,41 +129,51 @@
 		
         <h3>Liveness Analysis for C (Liveness)</h3>
         
-        <p align="justify"><b>Synopsis</b>: The analysis derives which variables are live at a program point (DFG node), 
+        <p align="justify"><b>Synopsis</b>: the analysis derives which variables are live at a program point (DFG node), 
         where live means that the current value of the variable may be read during the remaining execution of the program. </p>
 		<p align="justify"><b>Lattice element</b>: <code>Set&lt;node&lt;Var&gt;&gt;</code> which represents the set of live variables.</p>
 		<p align="justify"><b>Analysis direction</b>: backward, because the current value of a variable may be read in the future, thus we need to propagate the information from the back to the front.</p>
-		<p align="justify"><b>Must/May property</b>: may analysis, because we consider a variable live if it is read on any of the succeeding execution paths.</p>
+		<p align="justify"><b>Must/May property</b>: may analysis, because we consider a variable live if it is read on any of the succeeding execution paths. Here, we deliberately compute 
+		and upper approximation of the data-flow knowledge at runtime.</p>
         
-        <!--<h3>Null Analysis for Java (Nullable)</h3>
+        <h3>Null Analysis for Java (Nullable)</h3>
         
-        <p align="justify"><b>Synopsis</b>: The analysis derives whether the variable or expression is definitely null, definitely not null or can be null.</p>
-        <p>Its result may help preventing programming errors  i.e. calling the instance method on the object that was assigned to <code>null</code></p>
-		<p align="justify"><b>Lattice element</b>: <code>Map&lt;node, NullableState&gt;</code> which represents the state of expression/variable at each program point
-            <p>Nullable state can be one of the follows: NOTNULL, NULL, NULLABLE</p>
-        <p>
-            <code>NOTNULL</code> - means that expression/variable is definitely not null at this program point.
-        <p>
-            <code>NULL</code> - expression/variable is definitely null.
-        <p>
-            <code>NULLABLE</code> - expression/variable can be null.
-        <p>Those elements themselves define the lattice</p>
-        <img src="df/NULLABLE_3.png" style="width:400px;height:266px;">
-        <p> </p>
-		<p align="justify"><b>Analysis direction</b>:forward, because the state of the expression/variable depends on what it was assigned to which happened in the past. </p>
-		<p align="justify"><b>Must/May property</b>:must analysis, because we want this analysis to be a sound analysis, claiming that variable is definitely null/not null only if this fact holds on
-            all execution paths that lead to a program point. If on the on path the variable is definitely null and on the other it is definitely not null that means that at the program point it is nullable</p>
-        <p align="justify"><b>Custom instructions</b>:The analysis uses three custom instructions: <code>nullable</code>, <code>notNull</code> and <code>null</code>
-            with the parameter of expression.
+        <p align="justify"><b>Synopsis</b>: the analysis derives the nullable state of a variable or an expression. 
+        This information is used to prevent null pointer dereferencing in Java code.</p>
+        
+		<p align="justify"><b>Lattice element</b>: <code>Map&lt;node&lt;&gt;, NullableState&gt;</code> which represents the nullable state of an expression or a variable.
+		The NullableState itself is also a lattice which consists of the following elements:
+	
+		<ul>
+			<li align="justify"><b>NOTINIT</b>: assigned to an uninitialized variable. This is used to filter out null pointer dereferencing errors which 
+			originate from reads from uninitialized variables. These kinds of errors are caught by an uninitialized read analysis for Java. </li>
+			<li align="justify"><b>NULLABLE</b>: expression/variable may be <code>null,</code></li>
+    		<li align="justify"><b>NOTNULL</b>: expression/variable is definitely not <code>null</code>.</li>
+			<li align="justify"><b>NULL</b>: expression/variable is definitely <code>null</code>.</li>
+			<li align="justify"><b>?</b>: this element is never assigned by the analysis, but we use this element as the least upper bound for NULL and NOTNULL.
+		</ul>
+		</p>
 
-        <p><code>nullable</code> is inserted to the graph when the variable is annotated with the<code>@Nullable</code> annotation.
-        <p><code>notNull</code> is inserted if the variable is annotated with the <code>@NotNull</code> annotation or
-            the variable/expression is assigned to the definitely not null expression, i.e. <code>new Object</code>.</p>
-        <p><code>null</code> is inserted for the variables and expressions assigned to <code>null</code> literal.</p>
-
-        <p>The analysis handles these custom instructions and set the corresponding state to the variables/expression. Also it handles non-custom <code>write</code> instructions and assigns the
-            state of the <code>write</code> value to the variable which is written</p>
-		-->
+		<p align="justify">The lattice itself is depicted on the left in the following figure. We define a <code>merge</code> function which can be used to combine two lattice elements together. 
+		The implementation of the <code>merge</code> function is given with the table on the right in the following figure. The introduction and handling of NOTINIT may 
+		seem strange at first, but we emphasise that uninitialized read errors are caught by another analysis. Forgetting about NOTINITs is also accelerated by <code>merge</code>, because it
+		picks the other element whenever we combine a NOTINIT with something else. 
+		</p>
+		
+		<img src="df/nullable.png" style="width:600px;height:200px;">
+		
+		<p align="justify"><b>Analysis direction</b>:forward, because the analysis result depends on previous assignments (or the absence of them) which happened in the past. </p>
+		<p align="justify"><b>Must/May property</b>:must analysis, because we want this analysis to be a sound analysis, claiming that an expression/variable is definitely null/not null only if this fact holds on
+            all execution paths that lead to a program point.</p>
+        <p align="justify"><b>Custom instructions</b>:The analysis uses three custom instructions: <code>nullable</code>, <code>notNull</code> and <code>null</code>. 
+		All of these custom instructions have one parameter of type <code>node&lt;&gt;</code> which represents an expression or a variable. 
+		<ul>
+        	<li align="justify"><code>nullable</code> is inserted into the DFG when a variable (or parameter) is annotated with the <code>@Nullable</code> annotation.</li>
+        	<li align="justify"><code>notNull</code> is inserted if a variable (or parameter) is annotated with the <code>@NotNull</code> annotation or
+            the variable/expression is assigned a definitely not null expression.</li>
+        	<li align="justify"><code>null</code> is inserted for the variables and expressions when the <code>null</code> literal is assigned to them.</li>
+		</ul>
+		</p>
     </div>
 
 </div>
