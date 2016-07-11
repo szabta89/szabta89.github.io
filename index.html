@@ -57,10 +57,35 @@
 				</div>
 				
 				<div class="paper project">
+					<p id="SzaboEV16">
+						<b>Real-Time Feedback through Incremental Program Analysis</b><br/>
+						Tamás Szabó, Sebastian Erdweg, and Markus Voelter.<br/>
+						In <em>Proceedings of International Conference on Automated Software Engineering (ASE)</em>, ACM, 2016.
+						[&nbsp;<a href="publications/inca.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+								Program analyses support software developers, for example, through error 
+								detection, code-quality assurance, and by enabling compiler optimizations 
+								and refactorings. To provide real-time feedback to developers within IDEs, 
+								an analysis must run efficiently even if the analyzed code base is large.
+							</p>
+							<p align="justify">
+								To achieve this goal, we present a domain-specific language called IncA for 
+								the definition of efficient incremental program analyses that update their 
+								result as the program changes. IncA compiles analyses into graph patterns 
+								and relies on existing incremental matching algorithms. To scale IncA analyses 
+								to large programs, we describe optimizations that reduce caching and prune 
+								change propagation. Using IncA, we have developed incremental control flow 
+								and points-to analysis for C, well-formedness checks for DSLs, and 10 FindBugs 
+								checks for Java. Our evaluation demonstrates significant speedups for all analyses 
+								compared to their non-incremental counterparts.
+							</p>
+						</blockquote>
+					</p>
 					<p id="SzaboAVE16">
 						<b>An Extensible Framework for Variable-Precision Data-Flow Analyses in MPS</b><br/>
 						Tamás Szabó, Simon Alperovich, Markus Voelter, and Sebastian Erdweg.<br/>
-						In <em>Proceedings of International Conference on Automated Software Engineering (ASE)</em>, ACM, 2016.
+						In <em>Proceedings of International Conference on Automated Software Engineering (ASE) - Tool Track</em>, ACM, 2016.
 						[&nbsp;<a href="publications/mps-df-ase.pdf">pdf</a>&nbsp;]
 						<blockquote>
 							<p align="justify">
