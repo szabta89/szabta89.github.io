@@ -5,7 +5,7 @@ body {
 }
 
 a {
-  color: #8a5ed3;
+  color: #C4B100;
   text-decoration: none;
 }
 
@@ -48,7 +48,7 @@ strong, b {
 
 .uw {
   font-weight: 500;
-  color: #652c90;
+  color: #B6A622;
 }
 
 /* --- */
@@ -556,4 +556,40 @@ pre.bibtex {
 .about .quote,
 .about .para {
   line-height: 24px;
+}
+
+#menu {	
+	clear: both;
+	margin: 0; 
+	padding: 0 0 0 0;		
+	width: 850px;		
+	float: left;
+}
+#menu ul {
+	font: bolder 16px sans-serif;
+	width: 775px;
+	color: #666;
+	background-color: #FFF8BA;
+	margin: 0 0px;
+	padding: 0;
+	display: inline;
+	border-bottom: 6px solid #FFF;
+	float: left;	
+}
+#menu li {
+	float: left;
+	list-style: none;
+}
+#menu li a {
+	display: block;
+	padding: 5px 15px;	
+	color: #666;	
+	text-decoration: none;	
+}
+#menu li a:hover {
+	background: #FFF;
+	color: #666;
+}
+#menu li a#current  {
+	color: #666;
 }

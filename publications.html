@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+		<meta name="Keywords" content="Tamas Szabo, Tamás Szabó, TU Delft, itemis, Language Workbench, DSL, Static Analysis, Data-flow, MPS, Language Engineering" />
+		<meta name="Distribution" content="Global" />
+		<meta name="Robots" content="index,follow" />
+		<link rel="shortcut icon" href="favicon.ico"/>
+		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+		
+		<title>Tamás Szabó personal homepage</title>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="js/moretext.js"></script>
+	</head>
+	<body>
+		<div id="main">
+			<div class="header">
+				<div class="mark">
+					<span class="uw">Tamás Szabó</span>
+				</div>
+				<div id="title">personal homepage</div>
+				<br/>
+			</div>
+			
+			<div class="header">
+				<div id="menu">
+					<ul>
+						<li><a href="./index.html">Home</a></li>
+						<li><a href="./publications.html">Publications</a></li>
+						<li><a href="./projects.html">Projects</a></li>
+					</ul>	
+				</div>
+			</div>
+			
+			<div class="content">
+                <div class="header">
+					<button class="ShowHideAll">Show abstracts</button>
+                </div>
+                
+				<div class="paper project">
+					<div class="lead">2016</div>
+					<p id="Voelter16">
+						<b>Lessons learned from developing mbeddr: a case study in language engineering with MPS</b><br/>
+						Markus Völter, Bernd Kolb, <b>Tamás Szabó</b>, Daniel Ratiu, and Arie van Duersen.<br/>
+						In <em>Software and Systems Modeling</em>, 2016.
+						[&nbsp;<a href="publications/building-mbeddr.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+							Language workbenches are touted as a promising technology to engineer languages for use in a wide range 
+							of domains, from programming to science to business. However, not many real-world case studies exist 
+							that evaluate the suitability of language workbench technology for this task. This paper contains such a 
+							case study.
+							</p>
+							<p align="justify">
+							In particular, we evaluate the development of mbeddr, a collection of integrated languages and 
+							language extensions built with the Jetbrains MPS language workbench. mbeddr consists of 81 languages, 
+							with their IDE support, 34 of them C extensions. The mbeddr languages use a wide variety of 
+							notations – textual, tabular, symbolic and graphical – and the C extensions are modular; new extensions 
+							can be added without changing the existing implementation of C. mbeddr’s development has spanned 10 person 
+							years so far, and the tool is used in practice and continues to be developed. This makes mbeddr a 
+							meaningful case study of non-trivial size and complexity.
+							</p>
+							<p align="justify">
+							The evaluation is centered around five research questions: language modularity, notational freedom and 
+							projectional editing, mechanisms for managing complexity, performance and scalability issues and the 
+							consequences for the development process.
+							</p>
+						</blockquote>
+					</p>
+					<p id="Szabo16">
+						<b>Dedicated Support for Analyses and Optimizations in Language Workbenches</b><br/>
+						<b>Tamás Szabó</b>.<br/>
+						In <em>Proceedings of Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH) - Doctoral Symposium</em>, ACM, 2016.
+						[&nbsp;<a href="publications/diss-plan.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+								Language workbenches are widely used to implement domain-specific languages (DSLs) 
+								and their accompanying integrated development environments (IDEs). They help to define 
+								the abstract syntax, concrete syntax(es), type system, and transformations for the languages. 
+								However, there are other language aspects, specifically program analyses and optimizations, 
+								that are also crucial to a language implemen- tation, but state-of-the-art language workbenches 
+								has only limited support for them. The high implementation effort for these language aspects 
+								is justifiable for a general-purpose language (GPL), but is not justifiable for DSLs because 
+								of their different development economies.
+							</p>
+							<p align="justify">
+								To this end, I conduct research on dedicated support for analyses and optimizations for DSLs 
+								in language workbenches. My main goal is to develop declarative meta-languages that help to 
+								define static program analyses and that capture and automate patterns and techniques of optimizations. 
+								The research directions are directly driven by industrial need, and upon successful completion, 
+								the results would be applied in projects centered around DSLs for high-performance computing (HPC), 
+								insurance, and concurrent embedded systems.
+							</p>
+						</blockquote>
+					</p>
+					<p id="SzaboEV16">
+						<b>Efficient Development of Consistent Projectional Editors using Grammar Cells</b><br/>
+						Markus Völter, <b>Tamás Szabó</b>, Sascha Lisson, Bernd Kolb, Sebastian Erdweg, and Thorsten Berger.<br/>
+						In <em>Proceedings of Software Language Engineering (SLE)</em>, ACM, 2016.
+						[&nbsp;<a href="publications/gc-sle.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+								The definition of a projectional editor does not just specify the notation of a 
+								language, but also how users interact with the notation. Because of that it is 
+								easy to end up with different interaction styles within one and between multiple 
+								languages. The resulting inconsistencies have proven to be a major usability problem. 
+								To address this problem, we introduce grammar cells, an approach for declaratively 
+								specifying textual notations and their interactions for projectional editors. 
+								In the paper we motivate the problem, give a formal definition of grammar cells, 
+								and define their mapping to low-level editor behaviors. Our evaluation based 
+								on project experience shows that grammar cells improve editing experience by 
+								providing a consistent and intuitive, “text editor-like” user experience for 
+								textual notations. At the same time they do not limit language composability 
+								and the use of non-textual notations, the primary benefits of projectional 
+								editors. We have implemented grammar cells for Jetbrains MPS, but they can also 
+								be used with other projectional editors.
+							</p>
+						</blockquote>
+					</p>
+					<p id="SzaboEV16">
+						<b>IncA: A DSL for the Definition of Incremental Program Analyses</b><br/>
+						<b>Tamás Szabó</b>, Sebastian Erdweg, and Markus Voelter.<br/>
+						In <em>Proceedings of International Conference on Automated Software Engineering (ASE)</em>, ACM, 2016.
+						[&nbsp;<a href="publications/inca-ase.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+								Program analyses support software developers, for example, through error 
+								detection, code-quality assurance, and by enabling compiler optimizations 
+								and refactorings. To provide real-time feedback to developers within IDEs, 
+								an analysis must run efficiently even if the analyzed code base is large.
+							</p>
+							<p align="justify">
+								To achieve this goal, we present a domain-specific language called IncA for 
+								the definition of efficient incremental program analyses that update their 
+								result as the program changes. IncA compiles analyses into graph patterns 
+								and relies on existing incremental matching algorithms. To scale IncA analyses 
+								to large programs, we describe optimizations that reduce caching and prune 
+								change propagation. Using IncA, we have developed incremental control flow 
+								and points-to analysis for C, well-formedness checks for DSLs, and 10 FindBugs 
+								checks for Java. Our evaluation demonstrates significant speedups for all analyses 
+								compared to their non-incremental counterparts.
+							</p>
+						</blockquote>
+					</p>
+					<p id="SzaboAVE16">
+						<b>An Extensible Framework for Variable-Precision Data-Flow Analyses in MPS</b><br/>
+						<b>Tamás Szabó</b>, Simon Alperovich, Markus Voelter, and Sebastian Erdweg.<br/>
+						In <em>Proceedings of International Conference on Automated Software Engineering (ASE) - Tool Track</em>, ACM, 2016.
+						[&nbsp;<a href="publications/mps-df-ase.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+								Data-flow analyses are used as part of many software engineering
+								tasks: they are the foundations of program understanding, refactorings
+								and optimized code generation. Similar to general-purpose languages
+								(GPLs), state-of-the-art domain-specific languages (DSLs) also require
+								sophisticated data-flow analyses.  However, as a consequence of the
+								different economies of DSL development and their typically relatively
+								fast evolution, the effort for developing and evolving such analyses
+								must be lowered compared to GPLs.  This tension can be resolved with
+								dedicated support for data-flow analyses in language workbenches.
+							</p>
+							<p align="justify">
+								In this tool paper we present MPS-DF, which is the component in the MPS
+								language workbench that supports the definition of data-flow analyses
+								for DSLs. Language developers can define data-flow graph builders
+								declaratively as part of a language definition and compute analysis
+								results efficiently based on these data-flow graphs. MPS-DF is
+								extensible such that it does not compromise the support for language
+								composition in MPS. Additionally, clients of MPS-DF analyses can run the
+								analyses with variable precision thus trading off precision for
+								performance. This allows clients to tailor an analysis to a particular
+								use case.
+							</p>
+						</blockquote>
+					</p>
+					
+					<div class="lead">2014</div>
+					
+					<p id="SzaboVKRS2014">
+						<b>mbeddr: Extensible Languages for Embedded Software Development</b><br/>
+						<b>Tamás Szabó</b>, Markus Voelter, Bernd Kolb, Daniel Ratiu, Bernhard Schaetz.<br/>
+						In <em>Proceedings of High Integrity Language Technology (HILT)</em>, ACM, 2014.
+						[&nbsp;<a href="publications/mbeddr-hilt.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+								In this industrial presentation we will demonstrate mbeddr,
+								an extensible set of integrated languages for embedded software
+								development. After discussing the context of the talk,
+								we will give details about the mbeddr architecture, which
+								relies on the MPS language workbench. Then, we will elaborate
+								on the extension modules and show how they fit with
+								safety-critical development processes. Finally, we will point
+								out how the existing languages can be extended by the user
+								by giving some real-world examples, including a language
+								construct that could have prevented the Apple “goto fail”
+								bug as well as mathematical notations.
+							</p>
+						</blockquote>
+					</p>
+					
+					<div class="lead">2012</div>
+					
+					<p id="UjhelyiSRV2012">
+						<b>Developing and Visualizing Live Model Queries</b><br/>
+						Zoltán Újhelyi, <b>Tamás Szabó</b>, István Ráth, Dániel Varró.<br/>
+						In <em>Proceedings of Analysis of Model Transformations (AMT)</em>, ACM, 2012.
+						[&nbsp;<a href="publications/incquery-qe-amt.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+								Several important tasks performed by model driven development tools — 
+								such as well-formedness constraint validation or model transformations — 
+								rely on evaluating model queries. If the model changes rapidly or frequently, 
+								it is beneficial to provide live queries that automatically propagate 
+								these model changes into the query results. To ease the development and 
+								debugging of live queries, the development environment should provide a 
+								way to evaluate the query results continuously, helping to understand how the created query works.
+							</p>
+							<p align="justify">
+								This paper presents a generic live model query visualizer that displays 
+								and updates the query results depending on their source models. It has 
+								been implemented for the EMF-IncQuery framework and presented here 
+								for validating BPMN models.
+							</p>
+						</blockquote>
+					</p>
+					<p id="BergmannRSTV2012">
+						<b>Incremental pattern matching for the efficient computation of transitive closure</b><br/>
+						Gábor Bergmann, István Ráth, <b>Tamás Szabó</b>, Paolo Torrini, Dániel Varró.<br/>
+						In <em>Proceedings of International Conference on Graph Transformations (ICGT)</em>, Springer-Verlag, 2012.
+						[&nbsp;<a href="publications/incquery-tc-icgt.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+								Pattern matching plays a central role in graph transformations as a key 
+								technology for computing local contexts in which transformation rules are to be applied. 
+								Incremental matching techniques offer a performance advantage over the search-based approach, 
+								in a number of scenarios including on-the-fly model synchronization, model simulation, 
+								view maintenance, well-formedness checking and state space traversal. However, the incremental 
+								computation of transitive closure in graph pattern matching has started to be investigated 
+								only recently. In this paper, we propose multiple algorithms for the efficient computation of 
+								generalized transitive closures. As such, our solutions are capable of computing reachability 
+								regions defined by simple graph edges as well as complex binary relationships defined by 
+								graph patterns, that may be used in a wide spectrum of modeling problems. We also report on 
+								experimental evaluation of our prototypical implementation, carried out within the context 
+								of a stochastic system simulation case study.
+							</p>
+						</blockquote>
+					</p>
+					
+					<div class="lead">2011</div>
+					
+					<p id="VorosSJDHB2011">
+						<b>Parallel Saturation Based Model Checking</b><br/>
+						András Vörös, <b>Tamás Szabó</b>, Attila Jámbor, Dániel Darvas, Ákos Horváth, Tamás Bartha.<br/>
+						In <em>Proceedings of International Symposium on Parallel and Distributed Computing (ISPDC)</em>, IEEE, 2011.
+						[&nbsp;<a href="publications/petridotnet-ispdc.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+								Formal verification is becoming a fundamental step
+								of safety-critical and model-based software development. As
+								part of the verification process, model checking is one of the
+								current advanced techniques to analyze the behavior of a
+								system. In this paper, we examine an existing parallel model
+								checking algorithm and we propose improvements to eliminate
+								some computational bottlenecks. Our measurements show that
+								the resulting new algorithm has better scalability and
+								performance than both the former parallel approach and the
+								sequential algorithm.
+							</p>
+						</blockquote>
+					</p>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-44428446-5', 'auto');
+			ga('send', 'pageview');
+
+			ga('create', 'UA-48049134-5', 'auto', {'name': 'arvindsatya1'});
+			ga('arvindsatya1.send', 'pageview');
+		</script>
+	</body>
+</html>
