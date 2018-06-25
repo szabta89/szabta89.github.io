@@ -38,9 +38,69 @@
                 </div>
                 
 				<div class="paper project">
+					<div class="lead">2018</div>
+					<p id="Szabo18OOPSLA">
+						<b>Incrementalizing Lattice-Based Program Analyses</b><br/>
+						<b>Tamás Szabó</b>, Gábor Bergmann, Sebastian Erdweg, and Markus Völter.<br/>
+						In <em>Proceedings of Conference on Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA).</em> ACM, 2018.
+						[&nbsp;<a href="publications.html">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+							Program analyses detect errors in code but have to trade off 
+							precision, recall, and performance. However, when code changes 
+							frequently as in an IDE, repeated re-analysis from-scratch is 
+							unnecessary and leads to poor performance. Incremental program 
+							analysis promises to deliver fast feedback after a code change 
+							by deriving a new analysis result from the previous one, 
+							and prior work has shown that order-of-magnitude performance 
+							improvements are possible. However, existing frameworks for 
+							incremental program analysis only support Datalog-style 
+							relational analysis, but not lattice-based analyses that 
+							derive and aggregate lattice values. To solve this problem, 
+							we present the IncA incremental program analysis framework 
+							that supports relational analyses and lattice-based computations. 
+							IncA is based on a novel algorithm that enables the incremental 
+							maintenance of recursive lattice-value aggregation, which occurs 
+							when analyzing code with cyclic control flow by fixpoint 
+							iteration. To demonstrate our approach, we realized strong-update 
+							points-to analysis and string analyses for Java in IncA and 
+							present performance measurements that demonstrate incremental 
+							analysis updates within milliseconds.
+							</p>
+						</blockquote>
+					</p>
+					<p id="Szabo18FTfJP">
+						<b>Incremental Overload Resolution in Object-Oriented Programming Languages</b><br/>
+						<b>Tamás Szabó</b>, Edlira Kuci, Matthijs Bijman, Mira Mezini, and Sebastian Erdweg.<br/>
+						In <em>Proceedings of International Workshop on Formal Techniques for Java-like Programs (FTfJP).</em> ACM, 2018.
+						[&nbsp;<a href="publications.html">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+							Object-oriented programming languages feature static and 
+							dynamic overloading: Multiple methods share the same name 
+							but provide different implementations. Dynamic overloading 
+							(also know as dynamic dispatch) is resolved at run time based 
+							on the type of the receiver object. In this paper, we focus 
+							on static overloading, which is resolved at compile time 
+							based on the types of the method arguments.
+
+							The challenge this paper addresses is to incrementalize static 
+							overload resolution in IDEs. IDEs resolve overloaded methods 
+							for the developer to help them discern which implementation a 
+							method call refers to. However, as the code changes, the IDE 
+							has to reconsider previously resolved method calls when they 
+							are affected by the code change. This paper clarifies when a 
+							method call is affected by a code change and how to re-resolve 
+							method calls with minimal computational effort. To this end, 
+							we explore and compare two approaches to incremental type 
+							checking: co-contextual type checking and IncA.
+							</p>
+						</blockquote>
+					</p>
+					</div>
 					<div class="lead">2017</div>
 					<p id="Voelter17">
-						<b>An Overview of Program Analysis using Formal Methods </b><br/>
+						<b>An Overview of Program Analysis using Formal Methods</b><br/>
 						Markus Völter, <b>Tamás Szabó</b>, Björn Engelmann, and Klaus Birken.<br/>
 						An addendum to the book DSL Engineering (<a href="http://dslbook.org">http://dslbook.org</a>), 2017.
 						[&nbsp;<a href="publications/formal-overview.pdf">pdf</a>&nbsp;]
