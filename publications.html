@@ -43,25 +43,25 @@
 						<b>Incrementalizing Lattice-Based Program Analyses in Datalog</b><br/>
 						<b>Tamás Szabó</b>, Gábor Bergmann, Sebastian Erdweg, and Markus Völter.<br/>
 						In <em>Proceedings of Conference on Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA).</em> ACM, 2018.
-						[&nbsp;<a href="publications/inca-oopsla-draft.pdf">pdf</a>&nbsp;]
+						[&nbsp;<a href="publications/inca-oopsla.pdf">pdf</a>&nbsp;]
 						<blockquote>
 							<p align="justify">
-							Program analyses detect errors in code but have to trade off precision, recall, and performance.
-							However, when code changes frequently as in an IDE, repeated re-analysis from-scratch is unnecessary
-							and leads to poor performance. Incremental program analysis promises to deliver fast feedback after
-							a code change by deriving a new analysis result from the previous one, and prior work has shown that
-							order-of-magnitude performance improvements are possible. However, existing frameworks for
-							incremental program analysis are limited in expressive power because they only consider the
-							powerset lattice as the representation of the analysis result. This is also true for prior
-							approaches for incremental Datalog evaluation because relations encoded by Datalog rules also
-							compute sets of tuples. This is a problem because many practically relevant analyses build on custom
-							lattices and aggregation over lattice values. To solve this problem, we take our existing IncA
-							incremental program analysis framework that supports relational analyses, and we extend it with
-							lattice-based computations. Our extension is based on a novel algorithm that enables the incremental maintenance of recursive lattice-value
-							aggregation, which occurs when analyzing code with cyclic control flow by fixpoint iteration.
-							To demonstrate our approach, we realized strong-update points-to analysis and string analyses for
-							Java in IncA and present performance measurements that demonstrate incremental analysis updates
-							within milliseconds.
+							Program analyses detect errors in code, but when code changes frequently as in an IDE, 
+							repeated re-analysis from-scratch is unnecessary: It leads to poor performance unless 
+							we give up on precision and recall. Incremental program analysis promises to deliver 
+							fast feedback without giving up on precision or recall by deriving a new analysis 
+							result from the previous one. However, Datalog and other existing frameworks for 
+							incremental program analysis are limited in expressive power: They only support the 
+							powerset lattice as representation of analysis results, whereas many practically 
+							relevant analyses require custom lattices and aggregation over lattice values. To 
+							this end, we present a novel algorithm called DRed<sub>L</sub> that supports incremental 
+							maintenance of recursive lattice-value aggregation in Datalog. The key insight of 
+							DRed<sub>L</sub> is to dynamically recognize increasing replacements of old lattice values by 
+							new ones, which allows us to avoid the expensive deletion of the old value. We 
+							integrate DRed<sub>L</sub> into the analysis framework IncA and use IncA to realize 
+							incremental implementations of strong-update points-to analysis and string analysis 
+							for Java. As our performance evaluation demonstrates, both analyses react to code 
+							changes within milliseconds.
 							</p>
 						</blockquote>
 					</p>
