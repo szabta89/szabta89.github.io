@@ -37,6 +37,60 @@
 					<button class="ShowHideAll">Show abstracts</button>
                 </div>
 				<div class="paper project">
+					<div class="lead">2021</div>
+					<p id="Szabo21">
+						<b>Incrementalizing Static Analyses in Datalog</b><br/>
+						<b>Tamás Szabó</b><br/>
+						Doctoral dissertation, JGU Mainz, 2021.
+						[&nbsp;<a href="https://openscience.ub.uni-mainz.de/handle/20.500.12030/5617">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+							Static analyses are tools that reason about the behavior of computer programs without actually executing them. 
+							They play an important role in many areas of software development because they can catch potential runtime errors 
+							or reason about the security or performance of subject programs already at development time. For example, 
+							Integrated Development Environments (IDEs) use a variety of static analyses to provide continuous feedback to 
+							developers, as they edit their programs. IDEs run type checkers to verify that subject programs are free of 
+							type inconsistencies, or they run data-flow analyses to find security vulnerabilities. In turn, developers 
+							can fix or improve their programs before those go into production, thereby saving significant costs on the 
+							harmful effects of failures. 
+							</p><p align="justify">
+							Designing static analyses that provide continuous feedback in IDEs is challenging because analyses must balance 
+							a vexing trade-off between precision and performance. On the one hand, an analysis must precisely capture the 
+							program behavior by considering all possible concrete executions. On the other hand, an analysis running in an 
+							IDE must update its results after a program change in a fraction of a second, otherwise it interrupts the 
+							development flow, which is counterproductive. However, these two requirements are in conflict with each other, 
+							as more precision comes with more computational cost. Given that we cannot loosen the timing constraint in an IDE, 
+							the challenge is how to speed up static analyses, so that we sacrifice on precision as little as possible. 
+							</p><p align="justify">							
+							We study how to use incrementality to speed up static analyses. Instead of repeatedly reanalyzing the entire 
+							subject program from scratch, an incremental analysis reuses previous results and updates them based on the 
+							changed code parts. An incremental analysis can achieve significant performance improvements over its 
+							non-incremental counterpart if the computational cost of updating analysis results is proportional to the 
+							size of the change and not the size of the entire program. However, precise static analyses typically use 
+							features that significantly increase computational costs by requiring the re-analysis of more than just the 
+							changed code parts. Moreover, incrementalization requires sophisticated algorithms and data structures, 
+							so specialized solutions often do not pay off in terms of development effort. We claim that it is possible 
+							to automatically incrementalize static analyses, and incrementality can significantly improve the performance 
+							of static analyses. 
+							</p><p align="justify">							
+							We design an incremental static analysis framework called IncA. IncA offers a Datalog-based language for 
+							the specification of static analyses. The declarative nature of Datalog allows analysis developers to 
+							focus on the analyses themselves by leaving the incrementalization to a Datalog solver. We design Datalog 
+							solver algorithms to automatically incrementalize analyses and deliver the kind of performance that 
+							analyses running in IDEs need. We prove our solver algorithms correct, making sure that analyses 
+							incrementalized by IncA compute the exact same results as their non-incremental counterparts. The 
+							architecture of IncA is generic, as it is independent of any particular subject language, program, 
+							or analysis, enabling the integration of IncA into different IDEs. 
+							</p><p align="justify">							
+							We evaluate IncA by incrementalizing existing static analyses for a number of subject languages. 
+							We implement well-formedness checks for DSLs, FindBugs rules, data-flow analyses, inter-procedural 
+							points-to analysis for Java, plus a type checker for Featherweight Java and Rust. We find that IncA 
+							consistently delivers good performance across all of these analyses on real-world programs. Based on 
+							these results, we conclude that IncA enables the use of realistic static analyses for continuous feedback in IDEs.
+							</p>
+						</blockquote>
+					</p>
+				
 					<div class="lead">2020</div>
 					<p id="Pacak20">
 						<b>A Systematic Approach to Deriving Incremental Type Checkers</b><br/>
