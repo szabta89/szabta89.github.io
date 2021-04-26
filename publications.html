@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-		<meta name="Keywords" content="Tamas Szabo, Tamás Szabó, TU Delft, itemis, Language Workbench, DSL, Static Analysis, Data-flow, MPS, Language Engineering" />
+		<meta name="Keywords" content="Tamas Szabo, Tamás Szabó, Workday, JGU Mainz, TU Delft, TU Darmstadt, itemis, Language Workbench, DSL, Static Analysis, Data-flow, MPS, Language Engineering" />
 		<meta name="Distribution" content="Global" />
 		<meta name="Robots" content="index,follow" />
 		<link rel="shortcut icon" href="favicon.ico"/>
@@ -38,7 +38,54 @@
                 </div>
 				<div class="paper project">
 					<div class="lead">2021</div>
+					
+					<p id="Erdweg21">
+						<b>Concise, Type-Safe, and Efficient Structural Diffing</b><br/>
+						Sebastian Erdweg, <b>Tamás Szabó</b>, and André Pacak<br/>
+						In <em>Programming Language Design and Implementation (PLDI).</em> ACM, 2021.
+						[&nbsp;<a href="">to appear</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+							A structural diffing algorithm compares two pieces of tree-shaped data and computes their difference. 
+							Existing structural diffing algorithms either produce concise patches or ensure type safety, but never both. 
+							We present a new structural diffing algorithm called truediff that achieves both properties by treating subtrees 
+							as mutable, yet linearly typed resources. Mutation is required to derive concise patches that only mention 
+							changed nodes, but, in contrast to prior work, truediff guarantees all intermediate trees are well-typed. 
+							We formalize type safety, prove truediff has linear run time, and evaluate its performance and the conciseness 
+							of the derived patches empirically for real-world Python documents. While truediff ensures type safety, 
+							the size of its patches is on par with Gumtree, a popular untyped diffing implementation. Regardless, 
+							truediff outperforms Gumtree and a typed diffing implementation by an order of magnitude.
+							</p>
+						</blockquote>
+					</p>
+					
 					<p id="Szabo21">
+						<b>Incremental Whole-Program Analysis in Datalog</b><br/>
+						<b>Tamás Szabó</b>, Sebastian Erdweg, and Gábor Bergmann<br/>
+						In <em>Programming Language Design and Implementation (PLDI).</em> ACM, 2021.
+						[&nbsp;<a href="">to appear</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+							Incremental static analyses provide up-to-date analysis results in time proportional to the size of
+							a code change, not the entire code base. This promises fast feedback to
+							programmers in IDEs and when checking in commits. However, existing incremental analysis frameworks
+							fail to deliver on this promise for whole-program lattice-based data-flow analyses. In particular, prior
+							Datalog-based frameworks yield good incremental performance only for intra-procedural analyses. 
+							</p>
+							<p align="justify">
+							In this paper, we first present a methodology to empirically
+							test if a computation is amenable to incrementalization. Using this methodology, we find that
+							incremental whole-program analysis may be possible. Second, we present a new incremental Datalog
+							solver called LADDDER to eliminate the shortcomings of prior Datalog-based analysis frameworks.
+							Our Datalog solver uses a non-standard aggregation semantics which allows us to loosen monotonicity
+							requirements on analyses and to improve the performance of lattice aggregators considerably.
+							Our evaluation on real-world Java code confirms that LADDDER provides up-to-date
+							points-to, constant propagation, and interval information in milliseconds.
+							</p>
+						</blockquote>
+					</p>
+					
+					<p id="Szabo21DoctoralDissertation">
 						<b>Incrementalizing Static Analyses in Datalog</b><br/>
 						<b>Tamás Szabó</b><br/>
 						Doctoral dissertation, JGU Mainz, 2021.
