@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-		<meta name="Keywords" content="Tamas Szabo, Tamás Szabó, Workday, JGU Mainz, TU Delft, TU Darmstadt, itemis, Language Workbench, DSL, Static Analysis, Data-flow, MPS, Language Engineering" />
+		<meta name="Keywords" content="Tamas Szabo, Tamás Szabó, TU Delft, itemis, Language Workbench, DSL, Static Analysis, Data-flow, MPS, Language Engineering, Incremental Algorithms, Incremental Static Analysis, Developer Tooling, AI-assisted" />
 		<meta name="Distribution" content="Global" />
 		<meta name="Robots" content="index,follow" />
 		<link rel="shortcut icon" href="favicon.ico"/>
 		<link rel="stylesheet" type="text/css" href="css/main.css"/>
-		
-		<title>Tamás Szabó personal homepage</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dheereshagrwal/colored-icons@1.7.3/src/app/ci.min.css"/>
+		<title>Personal home page of Tamás Szabó</title>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
 		<script type="text/javascript" src="js/moretext.js"></script>
 	</head>
@@ -18,7 +18,7 @@
 				<div class="mark">
 					<span class="uw">Tamás Szabó</span>
 				</div>
-				<div id="title">personal homepage</div>
+				<div id="title">personal home page</div>
 				<br/>
 			</div>
 			
@@ -27,7 +27,6 @@
 					<ul>
 						<li><a href="./index.html">Home</a></li>
 						<li><a href="./publications.html">Publications</a></li>
-						<li><a href="./projects.html">Projects</a></li>
 					</ul>	
 				</div>
 			</div>
@@ -37,6 +36,33 @@
 					<button class="ShowHideAll">Show abstracts</button>
                 </div>
 				<div class="paper project">
+					<div class="lead">2023</div>
+					
+					<p id="Szabo23">
+						<b>Incrementalizing Production CodeQL Analyses</b><br/>
+						<b>Tamás Szabó</b><br/>
+						In <em>Foundations of Software Engineering (FSE), Industry Track.</em> ACM, 2023.
+						[&nbsp;<a href="publications/inc-codeql-fse2023.pdf">pdf</a>&nbsp;]
+						<blockquote>
+							<p align="justify">
+							Instead of repeatedly re-analyzing from scratch, an incremental
+							static analysis only analyzes a codebase once completely, and then
+							it updates the previous results based on the code changes. While
+							this sounds promising to achieve speed-ups, the reality is that 
+							sophisticated static analyses typically employ features that can ruin
+							incremental performance, such as inter-procedurality or context-sensitivity. 
+							In this study, we set out to explore whether incrementalization can help to 
+							achieve speed-ups for production CodeQL analyses that provide automated feedback on pull requests on GitHub.
+							We first empirically validate the idea by measuring the potential
+							for reuse on real-world codebases, and then we create a prototype
+							incremental solver for CodeQL that exploits incrementality. We
+							report on experimental results showing that we can indeed achieve
+							update times proportional to the size of the code change, and we
+							also discuss the limitations of our prototype.
+							</p>
+						</blockquote>
+					</p>
+					
 					<div class="lead">2021</div>
 					
 					<p id="Erdweg21">
